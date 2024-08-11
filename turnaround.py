@@ -46,7 +46,28 @@ if (algoritmo == "Fifo" or algoritmo == "SJF" or algoritmo == "RR"):
         
         media = media / quantidade_processos 
 
-        print(f"Seguindo o algoritmo {algoritmo}, os tempos de turnaround de cada processo são: \n{lista_tempos_turnaround}\nA média de tempo para cada processo será de {media:.2f} segundos.")
+        print(f"Seguindo o algoritmo {algoritmo}, os tempos de turnaround de cada processo são: \n{lista_tempos_turnaround}\nA média de tempo para cada processo será de {media:.1f} segundos.")
+
+    elif algoritmo == "RR":
+        quantum = int(input("Digite o tempo fixo que cada processo poderá utilizar: "))
+        tempo_restante = lista_tempos[:]
+        tempo_total = 0
+        while True:
+            finalizado = True
+            for i in range(quantidade_processos):
+                if tempo_restante[i] > 0:
+                    finalizado = False
+                    if tempo_restante[i] > quantum:
+                        tempo_total += quantum
+                        tempo_restante[i] -= quantum
+                        print(f"Processo {lista_tempos[i]} executando por {quantum} unidades de tempo. {tempo_restante[i]} unidades de tempo restantes.")
+                    else:
+                        tempo_total += tempo_restante[i]
+                        print(f"Processo {lista_tempos[i]} executando por {tempo_restante[i]} unidades de tempo. Processo concluído.")
+                        tempo_restante[i] = 0
+            if finalizado:
+                break
+        print(f"Tempo total de execução: {tempo_total} unidades de tempo.")       
 else:
     print(f"'{algoritmo}' não é um algoritmo válido (Fifo/SJF). Digite um algoritmo válido.")
         
