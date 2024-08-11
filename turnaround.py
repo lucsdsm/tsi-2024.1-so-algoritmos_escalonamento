@@ -28,6 +28,25 @@ if (algoritmo == "Fifo" or algoritmo == "SJF" or algoritmo == "RR"):
 
         print(f"Seguindo o algoritmo {algoritmo}, os tempos de turnaround de cada processo são: \n{lista_tempos_turnaround}\nA média de tempo para cada processo será de {media:.1f} segundos.")
 
+    # SJF
+    elif algoritmo == "SJF":
+        for x in lista_tempos:
+            turnaround = x
+            for y in lista_tempos:
+                if x <= y:
+                    pass
+                elif x > y:
+                    turnaround = turnaround + y
+                    print(f"{x} > {y}; turnaround = {turnaround}")
+            lista_tempos_turnaround = lista_tempos_turnaround + [turnaround]   
+
+        # Calcular média
+        for x in lista_tempos_turnaround:
+            media = media + x
+        
+        media = media / quantidade_processos 
+
+        print(f"Seguindo o algoritmo {algoritmo}, os tempos de turnaround de cada processo são: \n{lista_tempos_turnaround}\nA média de tempo para cada processo será de {media:.2f} segundos.")
 else:
     print(f"'{algoritmo}' não é um algoritmo válido (Fifo/SJF). Digite um algoritmo válido.")
         
